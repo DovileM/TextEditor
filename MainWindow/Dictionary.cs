@@ -32,7 +32,9 @@ namespace TextEditor
                         for (int i = 1; i < str.Length; i++)
                         {
                             mean +=str[i]+" ";
+                            
                         }
+                        //Console.WriteLine(mean);
                         dictionary.Add(new Words(str[0], mean));
                     }
                 }
@@ -89,6 +91,62 @@ namespace TextEditor
                     break;
             }
         }
+        /*public void ReadWordsFromInternet(string p2, char letter)
+        {
+            WebClient web = new WebClient();
+            string text;
+            string p1 = "https://www.vocabulary.com/lists/";
+            string path = Path.Combine(p1, p2);
+            string word = string.Empty;
+            Stream stream = web.OpenRead(path);
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                text = reader.ReadToEnd();
+            }
+            bool tf = false;
+            var result = Regex.Split(text.ToString(), @"<[^\>]*>");
+            for (int i = 0; i < result.Length; i++)
+            {
+                if ("from hard to easy".Equals(result[i]))
+                {
+                    for (int j = i + 1; j < result.Length; j++, i++)
+                    {
+                        if (result[j].Contains(Environment.NewLine))
+                            result[j] = result[j].Remove(0, 2);
+                        if(!string.IsNullOrEmpty(result[j]) || !string.IsNullOrWhiteSpace(result[j]))
+                            Console.WriteLine("." + result[j][0] + ","+ letter +" : " + result[j][0].Equals(letter));
+
+                        if (string.IsNullOrWhiteSpace(result[j]) || Regex.IsMatch(result[j], @"^(\w\s{0,1}\.{0,1}\,{0,1}\s{0,1}\w\s{0,1}\.{0,1}\,{0,1}\s{0,1}){1,}$")
+                                                                 || Regex.IsMatch(result[j], @"^\.$") || word.Equals(result[j])
+                                                                 || string.IsNullOrEmpty(result[j]))
+                            continue;
+                        else if ((!string.IsNullOrEmpty(result[j]) || !string.IsNullOrWhiteSpace(result[j])) && !result[j][0].Equals(letter))
+                            continue;
+                        else if (Regex.IsMatch(result[j], @"^Sign up, it's free!$"))
+                        {
+                            tf = true;
+                            break;
+                        }
+                        else
+                        {
+                            word = result[j];
+                            j++;
+                            while (string.IsNullOrEmpty(result[j]) || string.IsNullOrWhiteSpace(result[j]))
+                                j++;
+                            string mean = result[j];
+                            //var str = GetAllMeaning(mean, result, j);
+                            Console.WriteLine("RESULT:   " + word);
+                            Console.WriteLine("MEAN  :   " + mean);
+                            dictionary.Add(new Words(word, mean));
+                            //while (!word.Contains(result[j]))
+                            //    j++;
+                        }
+                    }
+                }
+                if (tf)
+                    break;
+            }
+        }*/
 
         private string GetAllMeaning(string[] mean, string[] result, int j)
         {
