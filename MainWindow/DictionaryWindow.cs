@@ -24,7 +24,7 @@ namespace MainWindow
         {
             TextEditor.Dictionary words;
             string msg = dict.SelectedItem.ToString();
-            string letter = msg[0].ToString();
+            string letter = msg[0].ToString().ToUpper();
             if (letter.Equals("Y") || letter.Equals("Z"))
                 letter = "YZ";
             for (int i = 0; i < dictionary.Count; i++)
